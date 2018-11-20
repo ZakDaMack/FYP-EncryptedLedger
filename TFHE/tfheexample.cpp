@@ -93,23 +93,22 @@ long GetCurrentTime()
     return chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
 }
 
-void BitRep(int x)
+void BitRepresentation(int32_t x, int numOfBits)
 {
-  vector<int> ret;
-  while(x) {
-    if (x&1)
-      ret.push_back(1);
-    else
-      ret.push_back(0);
-    x>>=1;
-  }
-  std::reverse(ret.begin(),ret.end());
+    vector<int> ret;
 
-  std::copy(ret.begin(),
-			ret.end(),
-			std::ostream_iterator<int>(std::cout, " "));
+    for (int i = 0; i < numOfBits; i++) {
+        ret.push_back((x >> i)&1);
+    }
 
-  cout << '\n';
+    reverse(ret.begin(), ret.end());
+
+    copy(ret.begin(),
+        ret.end(),
+        ostream_iterator<int>(cout, " ")
+    );
+
+    cout << '\n';
 }
 
 int32_t CollectInputs(string message, int messageLimit = 0)
@@ -158,15 +157,15 @@ int main()
 
     cout << "Private key: " << &key << "\nCloud key: " << &key->cloud << '\n';
 
-    int plainInt1 = CollectInputs("Provide your first number");
-    int plainInt2 = CollectInputs("Provide your second number");
+    int32_t plainInt1 = CollectInputs("Provide your first number");
+    int32_t plainInt2 = CollectInputs("Provide your second number");
     //cout << "Provide your first number: ";
     //cin >> plainInt1;
     //cout << "Provide your second number: ";
     //cin >> plainInt2;
     cout << plainInt1 << ", " << plainInt2 << '\n';
-    BitRep(plainInt1);
-    BitRep(plainInt2);
+    BitRepresentation(plainInt1, 32);
+    BitRepresentation(plainInt2, 32);
 
     // encrypt the two values
     cout << "Encrypting values... ";
@@ -178,7 +177,7 @@ int main()
     for (int i = 0; i < 32; i++) {
         // bootsSymEncrypt(print result to, current bit to encrypt, encryption key)
         bootsSymEncrypt(&ciphertext1[i], (plainInt1 >> i)&1, key);
-        // NB: (plainInt1 >> i)&1 .... Selects the correct bit from the integer and the &1 checks to see if there is a value
+        // NB: (plainInt1 >> i)&1 .... Selects the correct bit from the integer and the &1 checks to see if there is a value (1 for yes/ 0 for no)
     }
 
     //for second int
@@ -194,31 +193,44 @@ int main()
     // prepare a cipher array for results
     LweSample* result = new_gate_bootstrapping_ciphertext_array(32, params);
 
-    int option;
-    cout << "1. Minimum\n2. Addition\n3. Subtraction\nPlease choose an option: ";
-    cin >> option;
-    long startTime = GetCurrentTime();
-    switch (option) {
-        case 1 :
+    bool op_completed = true;
+    do
+    {
+
+        int option;
+        cout << "1. Minimum\n2. Addition\n3. Subtraction\nPlease choose an option: ";
+        cin >> option;
+        long startTime = GetCurrentTime();
+
+        op_completed = true;
+
+        switch (option) {
+            case 1 :
             minimum(result, ciphertext1, ciphertext2, 32, &key->cloud);
             break;
-        case 2 :
+            case 2 :
             Addition(result, ciphertext1, ciphertext2, 32, &key->cloud);
             break;
-        case 3 :
+            case 3 :
             Subtraction(result, ciphertext1, ciphertext2, 32, &key->cloud);
             break;
-        default :
+            default :
             cout << "Please choose a valid option!\n";
+            op_completed = false;
             break;
-    }
+        }
 
-    int timeElapsed = GetCurrentTime() - startTime;
-    cout << "Time elapsed: " << timeElapsed / 1000.0 << "s\n";
+        int timeElapsed = GetCurrentTime() - startTime;
+
+        if (op_completed)
+            cout << "Time elapsed: " << timeElapsed / 1000.0 << "s\n";
+
+    }
+    while (!op_completed);
 
     //decipher result
     //decrypt and rebuild the 16-bit plaintext answer
-    int16_t int_answer = 0;
+    int32_t int_answer = 0;
     for (int i = 0; i < 32; i++) {
         int ai = bootsSymDecrypt(&result[i], key);
         int_answer |= (ai<<i);

@@ -10,8 +10,12 @@ INCS=-I${TFHE_DIR}/include
 # LIBRARY-PATH
 LIBS=-L${TFHE_DIR}/lib -Wl,-rpath=${TFHE_DIR}/lib -ltfhe-spqlios-fma
 
+all: tfheexample tfheexample2
+
 tfheexample: tfheexample.cpp
 	${CC} ${INCS} -c $<
 	${CC} -o $@ $@.o ${LIBS}
- 
 
+tfheexample2: tfheexample2.cpp
+	${CC} ${INCS} -c $<
+	${CC} -o $@ $@.o ${LIBS}
