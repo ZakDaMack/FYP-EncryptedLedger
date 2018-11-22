@@ -16,7 +16,7 @@ using namespace std;
 * How can we check that a user has enough money to transfer over?
 **/
 
-void TransactionEncrypt(LweSample* result, int value, const int bitLength, const TFheGateBootstrappingCloudKeySet* ck)
+void TransactionEncrypt(LweSample* result, int64_t value, const int bitLength, const TFheGateBootstrappingCloudKeySet* ck)
 {
     cout << "Generating a cipher of " << value << ".... ";
 
@@ -102,9 +102,9 @@ void BitRepresentation(int x, int numOfBits)
     cout << '\n';
 }
 
-int32_t CollectInputs(string message, int messageLimit = 0)
+double CollectInputs(string message, int messageLimit = 0)
 {
-    int32_t value = 0;
+    double value = 0;
 
     while (true)
     {
@@ -133,6 +133,8 @@ int32_t CollectInputs(string message, int messageLimit = 0)
 
 int main()
 {
+    const int number_of_bits = 64;
+
     // set the key parameters (make sure to clean up in later version)
     const int minimum_lambda = 110;
     TFheGateBootstrappingParameterSet* params = new_default_gate_bootstrapping_parameters(minimum_lambda);
@@ -148,31 +150,32 @@ int main()
 
     cout << "Private key: " << &key << "\nCloud key: " << &key->cloud << '\n';
 
-    int bankBalanceA = CollectInputs("Provide your bank balance");
-    cout << bankBalanceA << '\n';
-    BitRepresentation(bankBalanceA, 16);
+    double oldBalanceA = CollectInputs("Provide your bank balance");
+    int64_t bankBalanceA = oldBalanceA * 100;
+    BitRepresentation(bankBalanceA, number_of_bits);
 
-    int transactionAmount = CollectInputs("Enter the amount to transfer");
+    int64_t transactionAmount = CollectInputs("Enter the amount to transfer") * 100;
 
     // encrypt the two values
     cout << "Encrypting values... ";
 
     // for first int
-    LweSample* cipherBalanceA = new_gate_bootstrapping_ciphertext_array(16, params);
+    LweSample* cipherBalanceA = new_gate_bootstrapping_ciphertext_array(number_of_bits, params);
     // integer assumed to be 16 bit for the moment
     // (what if it's more? can i look at number of bits and insert into array that way?)
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < number_of_bits; i++) {
         // bootsSymEncrypt(print result to, current bit to encrypt, encryption key)
         bootsSymEncrypt(&cipherBalanceA[i], (bankBalanceA >> i)&1, key);
         // NB: (plainInt1 >> i)&1 .... Selects the correct bit from the integer and the &1 checks to see if there is a value (1 for yes/ 0 for no)
     }
 
     // for second int
-    int bankBalanceB = 1200;
-    LweSample* cipherBalanceB = new_gate_bootstrapping_ciphertext_array(16, params);
+    double oldBalanceB = 120.56;
+    int64_t bankBalanceB = oldBalanceB * 100;
+    LweSample* cipherBalanceB = new_gate_bootstrapping_ciphertext_array(number_of_bits, params);
     // integer assumed to be 16 bit for the moment
     // (what if it's more? can i look at number of bits and insert into array that way?)
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < number_of_bits; i++) {
         // bootsSymEncrypt(print result to, current bit to encrypt, encryption key)
         bootsSymEncrypt(&cipherBalanceB[i], (bankBalanceB >> i)&1, key);
         // NB: (plainInt1 >> i)&1 .... Selects the correct bit from the integer and the &1 checks to see if there is a value (1 for yes/ 0 for no)
@@ -183,16 +186,16 @@ int main()
     // do an operation with these numbers
 
     // prepare a cipher array for results
-    LweSample* newCipherBankBalanceA = new_gate_bootstrapping_ciphertext_array(16, params);
-    LweSample* newCipherBankBalanceB = new_gate_bootstrapping_ciphertext_array(16, params);
+    LweSample* newCipherBankBalanceA = new_gate_bootstrapping_ciphertext_array(number_of_bits, params);
+    LweSample* newCipherBankBalanceB = new_gate_bootstrapping_ciphertext_array(number_of_bits, params);
 
     long startTime = GetCurrentTime();
-    LweSample* valueTransaction= new_gate_bootstrapping_ciphertext_array(16, params);
-    TransactionEncrypt(valueTransaction, transactionAmount, 16, &key->cloud);
+    LweSample* valueTransaction= new_gate_bootstrapping_ciphertext_array(number_of_bits, params);
+      TransactionEncrypt(valueTransaction, transactionAmount, number_of_bits, &key->cloud);
 
     // a is giving to b, so take 20 off account
-    Subtraction(newCipherBankBalanceA, cipherBalanceA, valueTransaction, 16, &key->cloud);
-    Addition(newCipherBankBalanceB, cipherBalanceB, valueTransaction, 16, &key->cloud);
+    Subtraction(newCipherBankBalanceA, cipherBalanceA, valueTransaction, number_of_bits, &key->cloud);
+    Addition(newCipherBankBalanceB, cipherBalanceB, valueTransaction, number_of_bits, &key->cloud);
 
     int timeElapsed = GetCurrentTime() - startTime;
     cout << "Time elapsed: " << timeElapsed / 1000.0 << "s\n";
@@ -200,22 +203,34 @@ int main()
 
     //decipher result
     //decrypt and rebuild the 16-bit plaintext answer for both bank balances
-    int16_t newBankBalanceA = 0;
-    for (int i = 0; i < 16; i++) {
+    int64_t newBankBalanceA = 0;
+    for (int i = 0; i < number_of_bits; i++) {
         int ai = bootsSymDecrypt(&newCipherBankBalanceA[i], key);
         newBankBalanceA |= (ai<<i);
     }
 
     //decipher result
     //decrypt and rebuild the 16-bit plaintext answer for both bank balances
-    int16_t newBankBalanceB = 0;
-    for (int i = 0; i < 16; i++) {
+    int64_t newBankBalanceB = 0;
+    for (int i = 0; i < number_of_bits; i++) {
         int bi = bootsSymDecrypt(&newCipherBankBalanceB[i], key);
         newBankBalanceB |= (bi<<i);
     }
 
+    // reinsert the decimal values
+    double newA = newBankBalanceA / 100.0;
+    double newB = newBankBalanceB / 100.0;
+
+
     // display info to user
-    cout << "Previous Bank Account Values" << '\n' << "Account A: " << bankBalanceA << '\n' << "Account B: " << bankBalanceB << '\n';
-    cout << "New Bank Account Values" << '\n' << "Account A: " << newBankBalanceA << '\n' << "Account B: " << newBankBalanceB << '\n';
+    cout << "Previous Bank Account Values" << '\n';
+    printf("Account A: £%#.2lf\n", oldBalanceA); // formatting for currency
+    printf("Account B: £%#.2lf\n", oldBalanceB);
+    //cout << bankBalanceA << endl << bankBalanceB <<endl;
+    cout << "New Bank Account Values" << '\n';
+    printf("Account A: £%#.2lf\n", newA);
+    printf("Account B: £%#.2lf\n", newB);
+    //cout << newBankBalanceA << endl << newBankBalanceB << endl;
+
     return 0;
 }

@@ -93,7 +93,7 @@ long GetCurrentTime()
     return chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
 }
 
-void BitRepresentation(int32_t x, int numOfBits)
+void BitRepresentation(int64_t x, int numOfBits)
 {
     vector<int> ret;
 
@@ -111,9 +111,9 @@ void BitRepresentation(int32_t x, int numOfBits)
     cout << '\n';
 }
 
-int32_t CollectInputs(string message, int messageLimit = 0)
+int64_t CollectInputs(string message, int messageLimit = 0)
 {
-    int32_t value = 0;
+    int64_t value = 0;
 
     while (true)
     {
@@ -142,6 +142,8 @@ int32_t CollectInputs(string message, int messageLimit = 0)
 
 int main()
 {
+    const int number_of_bits = 64;
+
     // set the key parameters (make sure to clean up in later version)
     const int minimum_lambda = 110;
     TFheGateBootstrappingParameterSet* params = new_default_gate_bootstrapping_parameters(minimum_lambda);
@@ -157,32 +159,32 @@ int main()
 
     cout << "Private key: " << &key << "\nCloud key: " << &key->cloud << '\n';
 
-    int32_t plainInt1 = CollectInputs("Provide your first number");
-    int32_t plainInt2 = CollectInputs("Provide your second number");
+    int64_t plainInt1 = CollectInputs("Provide your first number");
+    int64_t plainInt2 = CollectInputs("Provide your second number");
     //cout << "Provide your first number: ";
     //cin >> plainInt1;
     //cout << "Provide your second number: ";
     //cin >> plainInt2;
     cout << plainInt1 << ", " << plainInt2 << '\n';
-    BitRepresentation(plainInt1, 32);
-    BitRepresentation(plainInt2, 32);
+    BitRepresentation(plainInt1, number_of_bits);
+    BitRepresentation(plainInt2, number_of_bits);
 
     // encrypt the two values
     cout << "Encrypting values... ";
 
     // for first int
-    LweSample* ciphertext1 = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* ciphertext1 = new_gate_bootstrapping_ciphertext_array(number_of_bits, params);
     // integer assumed to be 16 bit for the moment
     // (what if it's more? can i look at number of bits and insert into array that way?)
-    for (int i = 0; i < 32; i++) {
+    for (int i = 0; i < number_of_bits; i++) {
         // bootsSymEncrypt(print result to, current bit to encrypt, encryption key)
         bootsSymEncrypt(&ciphertext1[i], (plainInt1 >> i)&1, key);
         // NB: (plainInt1 >> i)&1 .... Selects the correct bit from the integer and the &1 checks to see if there is a value (1 for yes/ 0 for no)
     }
 
     //for second int
-    LweSample* ciphertext2 = new_gate_bootstrapping_ciphertext_array(32, params);
-    for (int i = 0; i < 32; i++) {
+    LweSample* ciphertext2 = new_gate_bootstrapping_ciphertext_array(number_of_bits, params);
+    for (int i = 0; i < number_of_bits; i++) {
         bootsSymEncrypt(&ciphertext2[i], (plainInt2 >> i)&1, key);
     }
 
@@ -191,12 +193,11 @@ int main()
     // do an operation with these numbers
 
     // prepare a cipher array for results
-    LweSample* result = new_gate_bootstrapping_ciphertext_array(32, params);
+    LweSample* result = new_gate_bootstrapping_ciphertext_array(number_of_bits, params);
 
     bool op_completed = true;
     do
     {
-
         int option;
         cout << "1. Minimum\n2. Addition\n3. Subtraction\nPlease choose an option: ";
         cin >> option;
@@ -206,13 +207,13 @@ int main()
 
         switch (option) {
             case 1 :
-            minimum(result, ciphertext1, ciphertext2, 32, &key->cloud);
+            minimum(result, ciphertext1, ciphertext2, number_of_bits, &key->cloud);
             break;
             case 2 :
-            Addition(result, ciphertext1, ciphertext2, 32, &key->cloud);
+            Addition(result, ciphertext1, ciphertext2, number_of_bits, &key->cloud);
             break;
             case 3 :
-            Subtraction(result, ciphertext1, ciphertext2, 32, &key->cloud);
+            Subtraction(result, ciphertext1, ciphertext2, number_of_bits, &key->cloud);
             break;
             default :
             cout << "Please choose a valid option!\n";
@@ -230,8 +231,8 @@ int main()
 
     //decipher result
     //decrypt and rebuild the 16-bit plaintext answer
-    int32_t int_answer = 0;
-    for (int i = 0; i < 32; i++) {
+    int64_t int_answer = 0;
+    for (int i = 0; i < number_of_bits; i++) {
         int ai = bootsSymDecrypt(&result[i], key);
         int_answer |= (ai<<i);
     }
