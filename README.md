@@ -6,7 +6,7 @@ This repository will be used along with my Final Year Project being undertaken a
 
 This application will attempt to utilise Homomorphic Encryption to hide the data within a Distributed Ledger system.
 
-### Pre - requisites
+### Pre-Requisites
 
 1. Download TFHE .zip [here](https://tfhe.github.io/tfhe)
 2. Unzip the file and open the location in the terminal
@@ -20,4 +20,4 @@ This application will attempt to utilise Homomorphic Encryption to hide the data
 1. Download and unzip repository
 2. Navigate to TFHE inside the repository using the terminal
 3. Input: ```make```
-4. Input ```./tfheexample``` and the program should run
+4. Input ```./tfheexample``` or ```./tfheexample2``` and the program should run
