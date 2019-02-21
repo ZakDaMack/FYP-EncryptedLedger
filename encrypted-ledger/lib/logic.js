@@ -4,17 +4,21 @@
 * @transaction
 */
 
-async function SecureTransfer(transfer) {
+function SecureTransfer(transfer) {
     var factory = getFactory();
 
-    transfer.from.balance -= transfer.amount;
-    transfer.to.balance += transfer.amount;
+    transfer.from.balance -= transfer.transactionAmount;
+    transfer.to.balance += transfer.transactionAmount;
 
     var result = getAssetRegistry('encryptedledger.Account')
-        .then( function(assetRegistry) {
-            var toSucc = assetRegistry.update(transfer.to);
-            var fromSucc = assetRegistry.update(transfer.from);
-            return toSucc && fromSucc; // make sure both updates were successful
+        .then (function (registry) {
+            return registry.update(transfer.from);
+        })
+        .then (function () {
+            return getAssetRegistry('encryptedledger.Account');
+        })
+        .then(function (registry) {
+            return registry.update(transfer.to);
         });
 
     // Create an event to show a transaction has occured
@@ -27,9 +31,9 @@ async function SecureTransfer(transfer) {
     }
     else {
         var newEvent = factory.newEvent('encryptedledger', 'FailedTransactionEvent');
-        newEvent.accountToId = transfer.to;
-        newEvent.accountFromId = transfer.from;
-        newEvent.detail = "no idea why it worked";
+        newEvent.toId = transfer.to;
+        newEvent.fromId = transfer.from;
+        newEvent.detail = "no idea why it failed";
         emit(newEvent);
     }
 

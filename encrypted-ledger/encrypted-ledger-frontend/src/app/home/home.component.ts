@@ -12,34 +12,16 @@
  * limitations under the License.
  */
 
-namespace encryptedledger
+import { Component } from '@angular/core';
 
-participant User identified by participantKey {
-  o String participantKey
-  o String userName optional
-}
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css']
+})
+export class HomeComponent {
 
-asset Account identified by accountKey {
-  o String accountKey
-  o String publicKeyPath
-  o String balancePath
-  --> User accountHolder
-}
+  constructor () {
+  }
 
-transaction encryptedTransaction {
-  --> Account from
-  --> Account to
-  o Double transactionAmount
-}
-
-event SuccessfulTransactionEvent {
-  o String toId
-  o String fromId
-  o String detail
-}
-
-event FailedTransactionEvent {
-  o String toId
-  o String fromId
-  o String detail
 }

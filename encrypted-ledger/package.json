@@ -3,8 +3,8 @@
     "composer": "^0.20.5"
   },
   "name": "encrypted-ledger",
-  "version": "0.0.1",
-  "description": "A distributed ledger system which allows for the transfer of funds without revealing the users account information",
+  "version": "0.0.3",
+  "description": "A distributed ledger system which allows for the transfer of funds without revealing the user's personal information",
   "scripts": {
     "prepublish": "mkdirp ./dist && composer archive create --sourceType dir --sourceName . -a ./dist/encrypted-ledger.bna",
     "pretest": "npm run lint",

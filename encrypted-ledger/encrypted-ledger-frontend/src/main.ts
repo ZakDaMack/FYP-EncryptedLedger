@@ -12,34 +12,17 @@
  * limitations under the License.
  */
 
-namespace encryptedledger
+import './polyfills.ts';
 
-participant User identified by participantKey {
-  o String participantKey
-  o String userName optional
+import { enableProdMode } from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
+import { AppModule } from './app/app.module';
+import { environment } from './environments/environment';
+
+if (environment.production) {
+  enableProdMode();
 }
 
-asset Account identified by accountKey {
-  o String accountKey
-  o String publicKeyPath
-  o String balancePath
-  --> User accountHolder
-}
+platformBrowserDynamic().bootstrapModule(AppModule);
 
-transaction encryptedTransaction {
-  --> Account from
-  --> Account to
-  o Double transactionAmount
-}
-
-event SuccessfulTransactionEvent {
-  o String toId
-  o String fromId
-  o String detail
-}
-
-event FailedTransactionEvent {
-  o String toId
-  o String fromId
-  o String detail
-}
