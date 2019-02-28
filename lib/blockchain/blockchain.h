@@ -14,11 +14,12 @@ private:
 	void AddBlock(Block block);
 	Block GetBlock(int id);
 	void GenerateGenesisBlock();
+	double GetLatestBalance(int userId);
 
 public:
 	Blockchain();
 	void GiveNewUserStarterBalance(int userId);
-	void CreateTransaction(int idSender, int idRecipient, double transactionAmount);
+	int CreateTransaction(int idSender, int idRecipient, double transactionAmount);
 	void DisplayBlock(int id);
 	void DisplayChain();
 };

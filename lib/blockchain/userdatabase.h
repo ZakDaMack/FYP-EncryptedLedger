@@ -25,6 +25,7 @@ private:
 public:
 	UserDatabase();
 	int AddNewUser(string name);
+	int Size();
 	User GetUser(int id);
 	void DisplayUsers();
 };

@@ -4,22 +4,24 @@ Blockchain::Blockchain() {
 	GenerateGenesisBlock();
 }
 
-void Blockchain::CreateTransaction(int idSender, int idRecipient, double transactionAmount) {
-	double latestRecipientBalance, latestSenderBalance;
+int Blockchain::CreateTransaction(int idSender, int idRecipient, double transactionAmount) {
 	stringstream descStream;
 	descStream << "Transfer of £" << transactionAmount << " from " << idSender << " to " << idRecipient << ".";
 
-	// reverse through loop
-		for (auto it = Chain.rbegin(); it != Chain.rend(); ++it) {
-			if (latestSenderBalance == NULL && it->GetSenderID() == idSender)
-				latestSenderBalance = it->GetSenderBalance();
-			if (latestRecipientBalance == NULL && it->GetRecipientID() == idRecipient)
-				latestRecipientBalance = it->GetRecipientBalance();
-		}
-
 	auto latestBlock = next(Chain.end(), -1); // get the last item in the list
-	AddBlock(Block(latestBlock->GetID() + 1, descStream.str(), idRecipient, idSender, transactionAmount,
-		latestRecipientBalance, latestSenderBalance, latestBlock->GetHash()));
+	int newBlockId = latestBlock->GetID() + 1;
+	AddBlock(Block(newBlockId, descStream.str(), idRecipient, idSender, transactionAmount,
+		GetLatestBalance(idRecipient), GetLatestBalance(idSender), latestBlock->GetHash()));
+	return newBlockId;
+}
+
+double Blockchain::GetLatestBalance(int userId) {
+		for (auto it = Chain.rbegin(); it != Chain.rend(); ++it) {
+			if (it->GetSenderID() == userId)
+				return it->GetSenderBalance();
+			if (it->GetRecipientID() == userId)
+				return it->GetRecipientBalance();
+		}
 }
 
 void Blockchain::GiveNewUserStarterBalance(int userId) {
@@ -27,18 +29,20 @@ void Blockchain::GiveNewUserStarterBalance(int userId) {
 	descStream << "Adding £500 to new user id: " << userId << ".";
 
 	auto latestBlock = next(Chain.end(), -1); // get the last item in the list
-	AddBlock(Block(latestBlock->GetID() + 1, descStream.str(), userId, 0, 0,	500, 0, latestBlock->GetHash()));
+	AddBlock(Block(latestBlock->GetID() + 1, descStream.str(), userId, 0, 0, 500, 0, latestBlock->GetHash()));
 }
 
 void Blockchain::DisplayBlock(int id) {
+	cout << endl;
 	GetBlock(id).DisplayBlockContents();
 }
 
 void Blockchain::DisplayChain() {
+	cout << endl;
 	for (auto it = Chain.begin(); it != Chain.end(); ++it) {
 		it->DisplayBlockContents();
 	}
-	cout << "Chain size: " << Chain.size() << endl;
+	cout << "Chain size: " << Chain.size() << endl << endl;
 }
 
 void Blockchain::AddBlock(Block block) {
@@ -46,27 +50,12 @@ void Blockchain::AddBlock(Block block) {
 }
 
 Block Blockchain::GetBlock(int id) {
-	for (auto it = Chain.begin(); it != Chain.end(); ++it) {
-		if (it->GetID() == id) {
+	for (auto it = Chain.begin(); it != Chain.end(); ++it)
+		if (it->GetID() == id)
 			return *it;
-		}
-	}
+
 }
 
 void Blockchain::GenerateGenesisBlock() {
 	AddBlock(Block(0, "Genesis Block", 0, 0, 0, 0, 0, ""));
 }
-
-
-// int main() {
-// 	// test that the genesis block can be created properly
-// 	cout << "working.." << endl;
-// 	Blockchain c = Blockchain();
-// 	c.CreateTransaction(0, 0, 0);
-// 	c.CreateTransaction(0, 0, 0);
-// 	c.CreateTransaction(0, 0, 0);
-// 	cout << "printing.." << endl;
-// 	c.DisplayChain();
-// 	c.DisplayBlock(2);
-// 	return 0;
-// }

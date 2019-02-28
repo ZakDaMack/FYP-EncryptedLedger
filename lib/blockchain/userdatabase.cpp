@@ -21,8 +21,12 @@ User UserDatabase::GetUser(int id) {
 	}
 }
 
+int UserDatabase::Size() {
+	return UserList.size();
+}
+
 void UserDatabase::DisplayUsers() {
-	cout << "User List" << endl << "---------------------" << endl;
+	cout << endl << "User List" << endl << "---------------------" << endl;
 	for (auto it = UserList.begin(); it != UserList.end(); ++it) {
 		cout << it->ID << ": " << it->Name << endl;
 	}
