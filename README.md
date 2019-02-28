@@ -19,3 +19,11 @@ This application will attempt to utilise Homomorphic Encryption to hide the data
 
 1. ```cd lib```
 2. ```./run.sh```
+
+### TO-DO
+
+1. Serialisation
+2. Testing
+3. Implement TFHE
+4. Improve UX
+5. Create chain validator
