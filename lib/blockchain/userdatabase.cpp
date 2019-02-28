@@ -7,8 +7,10 @@ User::User(int id, string name) {
 
 UserDatabase::UserDatabase() { }
 
-void UserDatabase::AddNewUser(string name) {
-	Add(User(UserList.size() + 1, name));
+int UserDatabase::AddNewUser(string name) {
+	int userId = UserList.size() + 1;
+	Add(User(userId, name));
+	return userId;
 }
 
 User UserDatabase::GetUser(int id) {

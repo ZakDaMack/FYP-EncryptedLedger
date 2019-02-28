@@ -12,6 +12,7 @@ using namespace std;
 class Block  {
 	int ID;
 	// Transaction information
+	string TransactionDescription;
 	int RecipientId;
 	int SenderId;
 	double Amount;
@@ -28,7 +29,7 @@ private:
 	long GetCurrentTime();
 
 public:
-	Block(int id, int recipientId, int senderId, double transactionAmount, double oldSenderBalance, double oldRecipientBalance, string prevHash);
+	Block(int id, string transactionDesc, int recipientId, int senderId, double transactionAmount, double oldSenderBalance, double oldRecipientBalance, string prevHash);
 	void DisplayBlockContents();
 
   	int GetID();

@@ -8,8 +8,8 @@ void Block::CommitTransaction(double oldSenderBalance, double oldRecipientBalanc
 
 void Block::HashBlock() {
 	stringstream ss;
-	ss << ID << RecipientId << SenderId << Amount << SenderBalance
-	<< RecipientBalance << CreationTime << PrevHash;
+	ss << ID << TransactionDescription <<RecipientId << SenderId << Amount
+		<< SenderBalance << RecipientBalance << CreationTime << PrevHash;
 	Hash = sha256(ss.str());
 }
 
@@ -17,8 +17,9 @@ long Block::GetCurrentTime() {
 	return chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
 }
 
-Block::Block(int id, int recipientId, int senderId, double transactionAmount, double oldRecipientBalance, double oldSenderBalance, string prevHash) {
+Block::Block(int id, string transactionDesc, int recipientId, int senderId, double transactionAmount, double oldRecipientBalance, double oldSenderBalance, string prevHash) {
 	ID = id;
+	TransactionDescription = transactionDesc;
 	RecipientId = recipientId;
 	SenderId = senderId;
 	Amount = transactionAmount;
@@ -55,6 +56,7 @@ double Block::GetRecipientBalance() {
 void Block::DisplayBlockContents() {
 	cout << "Block " << ID << endl
 	<< "-------------------------" << endl
+	<< "Transaction Description: " << TransactionDescription << endl
 	<< "Recipient Id: " << RecipientId << endl
 	<< "Sender Id: " << SenderId << endl
 	<< "Recipient Balance: " << RecipientBalance << endl
