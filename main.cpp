@@ -1,5 +1,5 @@
-#include "blockchain/userdatabase.h"
-#include "blockchain/blockchain.h"
+#include "lib/blockchain/userdatabase.h"
+#include "lib/blockchain/blockchain.h"
 
 using namespace std;
 
@@ -35,7 +35,7 @@ int LoginAsUser() {
 
   while (true) {
     int userId;
-    cout << "Please Enter a Value: ";
+    cout << "Login As: ";
     cin >> userId;
 
     // make sure it is a valid number
@@ -57,7 +57,6 @@ int LoginAsUser() {
 
 int main(int argc, char const *argv[]) {
   InitUsersAndTransactions();
-
   // SPLASH
   cout << endl
     << "Encrypted Ledger Interactive Menu" << endl

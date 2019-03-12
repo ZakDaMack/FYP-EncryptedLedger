@@ -1,6 +1,6 @@
 #pragma once
 #ifndef USERDATABASE_H
-#include <list>
+#include <vector>
 #include <iterator>
 #include <stdio.h> //C lib
 #include <iostream> //C++ lib
@@ -17,7 +17,7 @@ public:
 };
 
 class UserDatabase {
-list<User> UserList;
+vector<User> UserList;
 
 private:
 	void Add(User user);

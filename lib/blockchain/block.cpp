@@ -29,7 +29,7 @@ Block::Block(int id, string transactionDesc, int recipientId, int senderId, doub
 	HashBlock(); // Hashing needs to be the last thing to be done
 }
 
-int Block::GetID(){
+int Block::GetID() {
 	return ID;
 }
 
@@ -62,7 +62,7 @@ void Block::DisplayBlockContents() {
 	<< "Recipient Balance: " << RecipientBalance << endl
 	<< "Sender Balance: " << SenderBalance << endl
 	<< "Transaction Amount: " << Amount << endl
-	<< "CreationTime: " << CreationTime << endl
+	<< "Creation Time: " << CreationTime << endl
 	<< "Previous Hash: " << PrevHash << endl
 	<< "Block Hash: " << Hash << endl << endl;
 }

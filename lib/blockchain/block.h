@@ -10,7 +10,8 @@
 using namespace std;
 
 class Block  {
-	int ID;
+private:
+  int ID;
 	// Transaction information
 	string TransactionDescription;
 	int RecipientId;
@@ -23,7 +24,6 @@ class Block  {
 	string PrevHash;
 	string Hash;
 
-private:
 	void CommitTransaction(double oldSenderBalance, double oldRecipientBalance);
 	void HashBlock();
 	long GetCurrentTime();
@@ -32,12 +32,12 @@ public:
 	Block(int id, string transactionDesc, int recipientId, int senderId, double transactionAmount, double oldSenderBalance, double oldRecipientBalance, string prevHash);
 	void DisplayBlockContents();
 
-  	int GetID();
-  	int GetSenderID();
-  	double GetSenderBalance();
-  	int GetRecipientID();
-  	double GetRecipientBalance();
-  	string GetHash();
+ 	int GetID();
+ 	int GetSenderID();
+ 	double GetSenderBalance();
+ 	int GetRecipientID();
+ 	double GetRecipientBalance();
+ 	string GetHash();
 };
 
 #endif

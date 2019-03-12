@@ -53,7 +53,6 @@ Block Blockchain::GetBlock(int id) {
 	for (auto it = Chain.begin(); it != Chain.end(); ++it)
 		if (it->GetID() == id)
 			return *it;
-
 }
 
 void Blockchain::GenerateGenesisBlock() {
