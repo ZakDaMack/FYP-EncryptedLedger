@@ -4,6 +4,7 @@
 #include <iterator>
 #include <stdio.h> //C lib
 #include <iostream> //C++ lib
+#include "../tfhe/encryptionInterface.h"
 #define USERDATABASE_H
 
 using namespace std;
@@ -12,6 +13,8 @@ class User {
 public:
 	int ID;
 	string Name;
+	string PrivateKeyPath;
+	string CloudKeyPath;
 
 	User(int id, string name);
 };
@@ -19,8 +22,7 @@ public:
 class UserDatabase {
 vector<User> UserList;
 
-private:
-	void Add(User user);
+void Add(User user);
 
 public:
 	UserDatabase();

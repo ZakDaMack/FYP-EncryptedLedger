@@ -11,9 +11,11 @@ int Blockchain::CreateTransaction(int idSender, int idRecipient, double transact
 	auto latestBlock = next(Chain.end(), -1); // get the last item in the list
 	int newBlockId = latestBlock->GetID() + 1;
 
+	cout << "sender is " << idSender << " recipient is " << idRecipient;
+
 	// Do the transaction
-	string senderBalance = ComputeSenderTransaction(transactionAmount, GetLatestBalance(idSender), senderCloudPath);
-	string receiverBalance = ComputeReceiverTransaction(transactionAmount, GetLatestBalance(idRecipient), recipientCloudPath);
+	string senderBalance = ComputeSenderTransaction(-transactionAmount, GetLatestBalance(idSender), senderCloudPath);
+	string receiverBalance = ComputeReceiverTransaction(-transactionAmount, GetLatestBalance(idRecipient), recipientCloudPath);
 
 	// Create a block with this information
 	AddBlock(Block(newBlockId, descStream.str(), idRecipient, idSender, transactionAmount,

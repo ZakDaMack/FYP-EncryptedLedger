@@ -37,3 +37,10 @@ void UserDatabase::DisplayUsers() {
 void UserDatabase::Add(User user) {
 	UserList.push_back(user);
 }
+
+// int main() {
+// 	UserDatabase db = UserDatabase();
+// 	db.AddNewUser("Meme");
+// 	db.DisplayUsers();
+// 	return 0;
+// }

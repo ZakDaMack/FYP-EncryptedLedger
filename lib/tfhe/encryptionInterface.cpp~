@@ -1,9 +1,4 @@
-#include <tfhe/tfhe.h>
-#include <tfhe/tfhe_io.h>
-#include <chrono>
-#include <iomanip>
-
-using namespace std;
+#include "encryptionInterface.h"
 
 // implements Subtraction using a binary subtractor
 void Subtraction(LweSample* result, const LweSample* a, const LweSample* b, const TFheGateBootstrappingCloudKeySet* publicKey) {
@@ -64,11 +59,11 @@ void CipherTransactionAmount(LweSample* result, int64_t value, const TFheGateBoo
     }
 }
 
-/// Generates a private key to encrypt and decrypt your bank balance
+/// Generates a private key file to encrypt and decrypt your bank balance
 /// Params:
 ///
 /// Returns: string of path for file containing key
-void GeneratePrivateAndPublicKeyFile()
+string GeneratePrivateKeyFile()
 {
     TFheGateBootstrappingParameterSet* parameters = new_default_gate_bootstrapping_parameters(126);
 
@@ -84,35 +79,46 @@ void GeneratePrivateAndPublicKeyFile()
     TFheGateBootstrappingSecretKeySet* key = new_random_gate_bootstrapping_secret_keyset(parameters);
 
     //export the secret key for decrypting bank balance at other points
-    FILE* private_file = fopen("private.key","wb");
+    string keyPath = "private" + to_string(GetCurrentTime()) + ".key";
+    FILE* private_file = fopen(keyPath,"wb");
     export_tfheGateBootstrappingSecretKeySet_toFile(private_file, key);
     fclose(private_file);
-
-    //export the cloud key to a file
-    FILE* public_file = fopen("public.key","wb");
-    export_tfheGateBootstrappingCloudKeySet_toFile(public_file, &key->cloud);
-    fclose(public_file);
 
     //clean up pointers
     delete_gate_bootstrapping_secret_keyset(key);
     delete_gate_bootstrapping_parameters(parameters);
 
+    return keyPath;
 }
 
-TFheGateBootstrappingCloudKeySet* GetPublicKey() {
+/// Generates a private key file to encrypt and decrypt your bank balance
+/// Params:
+///
+/// Returns: string of path for file containing key
+string GenerateCloudKeyFile()
+{
+    // Fetch the private key for grabbing cloud key
+    FILE* private_file = fopen(privateKeyPath.c_str(),"rb");
+    TFheGateBootstrappingSecretKeySet* key = new_tfheGateBootstrappingSecretKeySet_fromFile(private_file);
+    fclose(private_file);
 
-    FILE* public_file = fopen("public.key","rb");
-    TFheGateBootstrappingCloudKeySet* publicKey = new_tfheGateBootstrappingCloudKeySet_fromFile(public_file);
-    fclose(public_file);
+    //export the cloud key for decrypting bank balance at other points
+    string keyPath = "cloud" + to_string(GetCurrentTime()) + ".key";
+    FILE* cloud_file = fopen(keyPath.c_str(),"wb");
+    export_tfheGateBootstrappingCloudKeySet_toFile(cloud_file, key->cloud);
+    fclose(cloud_file);
 
-    return publicKey;
+    //clean up pointers
+    delete_gate_bootstrapping_secret_keyset(key);
 
+    return keyPath;
 }
 
-void EncryptBankBalance(double bankBalance)
+
+string EncryptBankBalance(double bankBalance, string privateKeyPath)
 {
     // Fetch the private key for encryption
-    FILE* private_file = fopen("private.key","rb");
+    FILE* private_file = fopen(privateKeyPath.c_str(),"rb");
     TFheGateBootstrappingSecretKeySet* privateKey = new_tfheGateBootstrappingSecretKeySet_fromFile(private_file);
     fclose(private_file);
 
@@ -126,7 +132,8 @@ void EncryptBankBalance(double bankBalance)
     }
 
     //export the balanace to a file
-    FILE* balance_file = fopen("balance.data","wb");
+    string balancePath = "balance" + to_string(GetCurrentTime()) + ".data";
+    FILE* balance_file = fopen(balancePath.c_str(),"wb");
     for (int i = 0; i < 64; i++)
     export_gate_bootstrapping_ciphertext_toFile(balance_file, &encryptedBalance[i], privateKey->params);
     fclose(balance_file);
@@ -136,19 +143,20 @@ void EncryptBankBalance(double bankBalance)
     delete_gate_bootstrapping_secret_keyset(privateKey);
     delete_gate_bootstrapping_ciphertext_array(64, encryptedBalance);
 
+    return balancePath;
 }
 
-string ReadBankBalance()
+double ReadBankBalance(string balancePath, string privateKeyPath);
 {
     // Fetch the private key for encryption
-    FILE* private_file = fopen("private.key","rb");
+    FILE* private_file = fopen(privateKeyPath.c_str(),"rb");
     TFheGateBootstrappingSecretKeySet* privateKey = new_tfheGateBootstrappingSecretKeySet_fromFile(private_file);
     fclose(private_file);
 
     LweSample* cipherBalance = new_gate_bootstrapping_ciphertext_array(64, privateKey->params);
 
     //import the balance
-    FILE* balance_file = fopen("balance.data","rb");
+    FILE* balance_file = fopen(balancePath.c_str(),"rb");
     for (int i = 0; i < 64; i++)
         import_gate_bootstrapping_ciphertext_fromFile(balance_file, &cipherBalance[i], privateKey->params);
     fclose(balance_file);
@@ -163,77 +171,81 @@ string ReadBankBalance()
     delete_gate_bootstrapping_secret_keyset(privateKey);
 
     // shift the balance back two places
-    double balance = shiftedBalance / 100.0;
-
-    return ""; //put_money(balance);
+    return shiftedBalance / 100.0;
 }
 
-void ComputeSenderTransaction(double transactionAmount)
+string ComputeSenderTransaction(double transactionAmount, string previousBalanceFile, string cloudKeyPath)
 {
     int64_t shiftedTransactionAmount = transactionAmount * 100;
 
     // Fetch the public key for computing
-    FILE* public_file = fopen("public.key","rb");
-    TFheGateBootstrappingCloudKeySet* publicKey = new_tfheGateBootstrappingCloudKeySet_fromFile(public_file);
-    fclose(public_file);
+    FILE* cloud_file = fopen(cloudKeyPath.c_str(),"rb");
+    TFheGateBootstrappingCloudKeySet* cloudKey = new_tfheGateBootstrappingCloudKeySet_fromFile(cloud_file);
+    fclose(cloud_file);
 
     // Get the account cipher
-    LweSample* cipherBalance = new_gate_bootstrapping_ciphertext_array(64, publicKey->params);
-    FILE* data_file = fopen("balance.data","rb");
+    LweSample* cipherBalance = new_gate_bootstrapping_ciphertext_array(64, cloudKey->params);
+    FILE* data_file = fopen(previousBalanceFile.c_str(),"rb");
     for (int i = 0; i < 64; i++)
-        import_gate_bootstrapping_ciphertext_fromFile(data_file, &cipherBalance[i], publicKey->params);
+        import_gate_bootstrapping_ciphertext_fromFile(data_file, &cipherBalance[i], cloudKey->params);
     fclose(data_file);
 
     // cipher the transaction amount, ready for processing
     LweSample* cipherTransaction = new_gate_bootstrapping_ciphertext_array(64, publicKey->params);
-    CipherTransactionAmount(cipherTransaction, shiftedTransactionAmount, publicKey);
+    CipherTransactionAmount(cipherTransaction, shiftedTransactionAmount, cloudKey);
 
-    Subtraction(cipherBalance, cipherBalance, cipherTransaction, publicKey);
+    Subtraction(cipherBalance, cipherBalance, cipherTransaction, cloudKey);
 
     // write new balance to file
-    FILE* balance_file = fopen("balance.data","wb");
+    string balancePath = "balance" + to_string(GetCurrentTime()) + ".data";
+    FILE* balance_file = fopen(balancePath.c_str(),"wb");
     for (int i = 0; i < 64; i++)
-        export_gate_bootstrapping_ciphertext_toFile(balance_file, &cipherBalance[i], publicKey->params);
+        export_gate_bootstrapping_ciphertext_toFile(balance_file, &cipherBalance[i], cloudKey->params);
     fclose(balance_file);
 
     // clear pointers
     delete_gate_bootstrapping_ciphertext_array(64, cipherBalance);
     delete_gate_bootstrapping_ciphertext_array(64, cipherTransaction);
-    delete_gate_bootstrapping_cloud_keyset(publicKey);
+    delete_gate_bootstrapping_cloud_keyset(cloudKey);
+
+    return balancePath;
 }
 
-void ComputeReceiverTransaction(double transactionAmount)
+void ComputeReceiverTransaction(double transactionAmount, string previousBalanceFile, string cloudKeyPath)
 {
     int64_t shiftedTransactionAmount = transactionAmount * 100;
 
     // Fetch the public key for computing
-    FILE* public_file = fopen("public.key","rb");
-    TFheGateBootstrappingCloudKeySet* publicKey = new_tfheGateBootstrappingCloudKeySet_fromFile(public_file);
-    fclose(public_file);
+    FILE* cloud_file = fopen(cloudKeyPath.c_str(),"rb");
+    TFheGateBootstrappingCloudKeySet* cloudKey = new_tfheGateBootstrappingCloudKeySet_fromFile(cloud_file);
+    fclose(cloud_file);
 
     // Get the account cipher
-    LweSample* cipherBalance = new_gate_bootstrapping_ciphertext_array(64, publicKey->params);
-    FILE* data_file = fopen("balance.data","rb");
+    LweSample* cipherBalance = new_gate_bootstrapping_ciphertext_array(64, cloudKey->params);
+    FILE* data_file = fopen(previousBalanceFile.c_str(),"rb");
     for (int i = 0; i < 64; i++)
-        import_gate_bootstrapping_ciphertext_fromFile(data_file, &cipherBalance[i], publicKey->params);
+        import_gate_bootstrapping_ciphertext_fromFile(data_file, &cipherBalance[i], cloudKey->params);
     fclose(data_file);
 
     // cipher the transaction amount, ready for processing
     LweSample* cipherTransaction = new_gate_bootstrapping_ciphertext_array(64, publicKey->params);
-    CipherTransactionAmount(cipherTransaction, shiftedTransactionAmount, publicKey);
+    CipherTransactionAmount(cipherTransaction, shiftedTransactionAmount, cloudKey);
 
-    Addition(cipherBalance, cipherBalance, cipherTransaction, publicKey);
+    Addition(cipherBalance, cipherBalance, cipherTransaction, cloudKey);
 
     // write new balance to file
-    FILE* balance_file = fopen("balance.data","wb");
+    string balancePath = "balance" + to_string(GetCurrentTime()) + ".data";
+    FILE* balance_file = fopen(balancePath.c_str(),"wb");
     for (int i = 0; i < 64; i++)
-        export_gate_bootstrapping_ciphertext_toFile(balance_file, &cipherBalance[i], publicKey->params);
+        export_gate_bootstrapping_ciphertext_toFile(balance_file, &cipherBalance[i], cloudKey->params);
     fclose(balance_file);
 
     // clear pointers
     delete_gate_bootstrapping_ciphertext_array(64, cipherBalance);
     delete_gate_bootstrapping_ciphertext_array(64, cipherTransaction);
-    delete_gate_bootstrapping_cloud_keyset(publicKey);
+    delete_gate_bootstrapping_cloud_keyset(cloudKey);
+
+    return balancePath;
 }
 
 bool VerifyTransaction(bool outgoingTransaction, double transactionAmount)
