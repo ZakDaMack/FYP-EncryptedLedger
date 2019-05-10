@@ -1,0 +1,144 @@
+\hypertarget{classBlockchain}{}\doxysection{Blockchain Class Reference}
+\label{classBlockchain}\index{Blockchain@{Blockchain}}
+
+
+{\ttfamily \#include $<$blockchain.\+h$>$}
+
+
+
+Collaboration diagram for Blockchain\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{classBlockchain__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBlockchain_afb66c736ee870ebf75913d01a50f87a4}{Blockchain}} ()
+\item 
+\mbox{\hyperlink{classBlock}{Block}} \mbox{\hyperlink{classBlockchain_a997de14ceba92941752a35d4a821ebaa}{Get\+Block}} (int id)
+\item 
+void \mbox{\hyperlink{classBlockchain_aa03c87e4f581275ea6781c41b3212be3}{Generate\+Genesis\+Block}} ()
+\item 
+void \mbox{\hyperlink{classBlockchain_af979c5de88651a96fd254e7edd894ce2}{Init\+New\+User\+Balance}} (int user\+Id, string new\+Balance\+Path)
+\item 
+string \mbox{\hyperlink{classBlockchain_ab73f69e6ee9437556ca42a76b4c2f999}{Get\+Latest\+Balance}} (int user\+Id, int ignore\+Block\+Id)
+\item 
+string \mbox{\hyperlink{classBlockchain_a40008bc0a7e5d2131fe413d7586659b5}{Get\+Latest\+Balance}} (int user\+Id)
+\item 
+int \mbox{\hyperlink{classBlockchain_ace8bce31ba9cda3d51171080118cc98e}{Create\+Transaction}} (int id\+Sender, int id\+Recipient, double transaction\+Amount, string sender\+Cloud\+Path, string recipient\+Cloud\+Path)
+\item 
+bool \mbox{\hyperlink{classBlockchain_a032b558a6780b0e62c59e2205bec510a}{Is\+Transaction\+Block}} (int id)
+\item 
+bool \mbox{\hyperlink{classBlockchain_a93907cbfe4242c9e982169eb83b99281}{Verify\+Transaction}} (int block\+Id, string sender\+Cloud\+Path, string recipient\+Cloud\+Path)
+\item 
+void \mbox{\hyperlink{classBlockchain_ad107d25255565f6bf4eca9326d2208e7}{Display\+Block}} (int id)
+\item 
+void \mbox{\hyperlink{classBlockchain_a9730a8a714ae6d9d5987b887781dcea8}{Display\+Chain}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classBlockchain_abf71500057341975acf3ea252cf1a718}{Add\+Block}} (\mbox{\hyperlink{classBlock}{Block}} block)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+vector$<$ \mbox{\hyperlink{classBlock}{Block}} $>$ \mbox{\hyperlink{classBlockchain_a1bac5504b82e83261ce55957ddaedba8}{Chain}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBlockchain_afb66c736ee870ebf75913d01a50f87a4}\label{classBlockchain_afb66c736ee870ebf75913d01a50f87a4}} 
+\index{Blockchain@{Blockchain}!Blockchain@{Blockchain}}
+\index{Blockchain@{Blockchain}!Blockchain@{Blockchain}}
+\doxysubsubsection{\texorpdfstring{Blockchain()}{Blockchain()}}
+{\footnotesize\ttfamily Blockchain\+::\+Blockchain (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBlockchain_abf71500057341975acf3ea252cf1a718}\label{classBlockchain_abf71500057341975acf3ea252cf1a718}} 
+\index{Blockchain@{Blockchain}!AddBlock@{AddBlock}}
+\index{AddBlock@{AddBlock}!Blockchain@{Blockchain}}
+\doxysubsubsection{\texorpdfstring{AddBlock()}{AddBlock()}}
+{\footnotesize\ttfamily void Blockchain\+::\+Add\+Block (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classBlock}{Block}}}]{block }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classBlockchain_ace8bce31ba9cda3d51171080118cc98e}\label{classBlockchain_ace8bce31ba9cda3d51171080118cc98e}} 
+\index{Blockchain@{Blockchain}!CreateTransaction@{CreateTransaction}}
+\index{CreateTransaction@{CreateTransaction}!Blockchain@{Blockchain}}
+\doxysubsubsection{\texorpdfstring{CreateTransaction()}{CreateTransaction()}}
+{\footnotesize\ttfamily int Blockchain\+::\+Create\+Transaction (\begin{DoxyParamCaption}\item[{int}]{id\+Sender,  }\item[{int}]{id\+Recipient,  }\item[{double}]{transaction\+Amount,  }\item[{string}]{sender\+Cloud\+Path,  }\item[{string}]{recipient\+Cloud\+Path }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classBlockchain_ad107d25255565f6bf4eca9326d2208e7}\label{classBlockchain_ad107d25255565f6bf4eca9326d2208e7}} 
+\index{Blockchain@{Blockchain}!DisplayBlock@{DisplayBlock}}
+\index{DisplayBlock@{DisplayBlock}!Blockchain@{Blockchain}}
+\doxysubsubsection{\texorpdfstring{DisplayBlock()}{DisplayBlock()}}
+{\footnotesize\ttfamily void Blockchain\+::\+Display\+Block (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classBlockchain_a9730a8a714ae6d9d5987b887781dcea8}\label{classBlockchain_a9730a8a714ae6d9d5987b887781dcea8}} 
+\index{Blockchain@{Blockchain}!DisplayChain@{DisplayChain}}
+\index{DisplayChain@{DisplayChain}!Blockchain@{Blockchain}}
+\doxysubsubsection{\texorpdfstring{DisplayChain()}{DisplayChain()}}
+{\footnotesize\ttfamily void Blockchain\+::\+Display\+Chain (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classBlockchain_aa03c87e4f581275ea6781c41b3212be3}\label{classBlockchain_aa03c87e4f581275ea6781c41b3212be3}} 
+\index{Blockchain@{Blockchain}!GenerateGenesisBlock@{GenerateGenesisBlock}}
+\index{GenerateGenesisBlock@{GenerateGenesisBlock}!Blockchain@{Blockchain}}
+\doxysubsubsection{\texorpdfstring{GenerateGenesisBlock()}{GenerateGenesisBlock()}}
+{\footnotesize\ttfamily void Blockchain\+::\+Generate\+Genesis\+Block (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classBlockchain_a997de14ceba92941752a35d4a821ebaa}\label{classBlockchain_a997de14ceba92941752a35d4a821ebaa}} 
+\index{Blockchain@{Blockchain}!GetBlock@{GetBlock}}
+\index{GetBlock@{GetBlock}!Blockchain@{Blockchain}}
+\doxysubsubsection{\texorpdfstring{GetBlock()}{GetBlock()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classBlock}{Block}} Blockchain\+::\+Get\+Block (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classBlockchain_a40008bc0a7e5d2131fe413d7586659b5}\label{classBlockchain_a40008bc0a7e5d2131fe413d7586659b5}} 
+\index{Blockchain@{Blockchain}!GetLatestBalance@{GetLatestBalance}}
+\index{GetLatestBalance@{GetLatestBalance}!Blockchain@{Blockchain}}
+\doxysubsubsection{\texorpdfstring{GetLatestBalance()}{GetLatestBalance()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily string Blockchain\+::\+Get\+Latest\+Balance (\begin{DoxyParamCaption}\item[{int}]{user\+Id }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classBlockchain_ab73f69e6ee9437556ca42a76b4c2f999}\label{classBlockchain_ab73f69e6ee9437556ca42a76b4c2f999}} 
+\index{Blockchain@{Blockchain}!GetLatestBalance@{GetLatestBalance}}
+\index{GetLatestBalance@{GetLatestBalance}!Blockchain@{Blockchain}}
+\doxysubsubsection{\texorpdfstring{GetLatestBalance()}{GetLatestBalance()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily string Blockchain\+::\+Get\+Latest\+Balance (\begin{DoxyParamCaption}\item[{int}]{user\+Id,  }\item[{int}]{ignore\+Block\+Id }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classBlockchain_af979c5de88651a96fd254e7edd894ce2}\label{classBlockchain_af979c5de88651a96fd254e7edd894ce2}} 
+\index{Blockchain@{Blockchain}!InitNewUserBalance@{InitNewUserBalance}}
+\index{InitNewUserBalance@{InitNewUserBalance}!Blockchain@{Blockchain}}
+\doxysubsubsection{\texorpdfstring{InitNewUserBalance()}{InitNewUserBalance()}}
+{\footnotesize\ttfamily void Blockchain\+::\+Init\+New\+User\+Balance (\begin{DoxyParamCaption}\item[{int}]{user\+Id,  }\item[{string}]{new\+Balance\+Path }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classBlockchain_a032b558a6780b0e62c59e2205bec510a}\label{classBlockchain_a032b558a6780b0e62c59e2205bec510a}} 
+\index{Blockchain@{Blockchain}!IsTransactionBlock@{IsTransactionBlock}}
+\index{IsTransactionBlock@{IsTransactionBlock}!Blockchain@{Blockchain}}
+\doxysubsubsection{\texorpdfstring{IsTransactionBlock()}{IsTransactionBlock()}}
+{\footnotesize\ttfamily bool Blockchain\+::\+Is\+Transaction\+Block (\begin{DoxyParamCaption}\item[{int}]{id }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classBlockchain_a93907cbfe4242c9e982169eb83b99281}\label{classBlockchain_a93907cbfe4242c9e982169eb83b99281}} 
+\index{Blockchain@{Blockchain}!VerifyTransaction@{VerifyTransaction}}
+\index{VerifyTransaction@{VerifyTransaction}!Blockchain@{Blockchain}}
+\doxysubsubsection{\texorpdfstring{VerifyTransaction()}{VerifyTransaction()}}
+{\footnotesize\ttfamily bool Blockchain\+::\+Verify\+Transaction (\begin{DoxyParamCaption}\item[{int}]{block\+Id,  }\item[{string}]{sender\+Cloud\+Path,  }\item[{string}]{recipient\+Cloud\+Path }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classBlockchain_a1bac5504b82e83261ce55957ddaedba8}\label{classBlockchain_a1bac5504b82e83261ce55957ddaedba8}} 
+\index{Blockchain@{Blockchain}!Chain@{Chain}}
+\index{Chain@{Chain}!Blockchain@{Blockchain}}
+\doxysubsubsection{\texorpdfstring{Chain}{Chain}}
+{\footnotesize\ttfamily vector$<$\mbox{\hyperlink{classBlock}{Block}}$>$ Blockchain\+::\+Chain\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+blockchain/\mbox{\hyperlink{blockchain_8h}{blockchain.\+h}}\item 
+blockchain/\mbox{\hyperlink{blockchain_8cpp}{blockchain.\+cpp}}\end{DoxyCompactItemize}

@@ -13,14 +13,17 @@ private:
 	vector<Block> Chain;
 
 	void AddBlock(Block block);
-	Block GetBlock(int id);
 
 public:
 	Blockchain();
+	Block GetBlock(int id);
 	void GenerateGenesisBlock();
 	void InitNewUserBalance(int userId, string newBalancePath);
+	string GetLatestBalance(int userId, int ignoreBlockId);
 	string GetLatestBalance(int userId);
 	int CreateTransaction(int idSender, int idRecipient, double transactionAmount, string senderCloudPath, string recipientCloudPath);
+	bool IsTransactionBlock(int id);
+	bool VerifyTransaction(int blockId, string senderCloudPath, string recipientCloudPath);
 	void DisplayBlock(int id);
 	void DisplayChain();
 };

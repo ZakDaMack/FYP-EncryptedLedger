@@ -1,0 +1,208 @@
+\hypertarget{classBlock}{}\doxysection{Block Class Reference}
+\label{classBlock}\index{Block@{Block}}
+
+
+{\ttfamily \#include $<$block.\+h$>$}
+
+
+
+Collaboration diagram for Block\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classBlock__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBlock_a2e61c2609df0fbc30a370050cb304f24}{Block}} (int id, string transaction\+Desc, int recipient\+Id, int sender\+Id, double transaction\+Amount, string recipient\+Balance, string sender\+Balance, string prev\+Hash)
+\item 
+void \mbox{\hyperlink{classBlock_ac56f9daf4952e13506de14bb1bf27245}{Display\+Block\+Contents}} ()
+\item 
+int \mbox{\hyperlink{classBlock_acd8159dd195fcd79f4f506f05198f65a}{Get\+ID}} ()
+\item 
+int \mbox{\hyperlink{classBlock_a5bb3cd568e1b2d7c73653e1002e61b60}{Get\+Sender\+ID}} ()
+\item 
+string \mbox{\hyperlink{classBlock_af1f93838be8622e85ebe6dc4beba3141}{Get\+Sender\+Balance\+Path}} ()
+\item 
+int \mbox{\hyperlink{classBlock_afc37cdcb9ddda35c39aa631a355dcbb2}{Get\+Recipient\+ID}} ()
+\item 
+string \mbox{\hyperlink{classBlock_a6d88e5b5822ba6539385136715116de7}{Get\+Recipient\+Balance\+Path}} ()
+\item 
+string \mbox{\hyperlink{classBlock_ac0fc09c2c0060cd7b806dd2fc34d4977}{Get\+Hash}} ()
+\item 
+double \mbox{\hyperlink{classBlock_ab1966e01025db3d50ec2e972e4320e83}{Get\+Transaction\+Amount}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classBlock_a625e5e370229fb4912f4a5e37a8500c9}{Hash\+Block}} ()
+\item 
+long \mbox{\hyperlink{classBlock_a59dded402554212a98a05d0ae758331e}{Get\+Current\+Time}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{classBlock_a1fbbe7a8dd960915cb5a8c8f466037dd}{ID}}
+\item 
+string \mbox{\hyperlink{classBlock_a4541ab35c81c694a48613fa7b236341c}{Transaction\+Description}}
+\item 
+int \mbox{\hyperlink{classBlock_aaa61df32673d444ece31a98b144fe508}{Recipient\+Id}}
+\item 
+int \mbox{\hyperlink{classBlock_a9a343b8872b18e4526a63a740f62119f}{Sender\+Id}}
+\item 
+double \mbox{\hyperlink{classBlock_a2d473e56125513fcdf3cdbaf4bd01cec}{Amount}}
+\item 
+string \mbox{\hyperlink{classBlock_a8a1bfee9b3ea84c6c6a9656275ae7362}{Sender\+Balance\+Path}}
+\item 
+string \mbox{\hyperlink{classBlock_a53efa9070010c9516c30117db14af8d3}{Recipient\+Balance\+Path}}
+\item 
+long \mbox{\hyperlink{classBlock_a2be0ec7bac0d9bc36ce063c265f3756e}{Creation\+Time}}
+\item 
+string \mbox{\hyperlink{classBlock_a61426ea59915c338d957d52f7b884a45}{Prev\+Hash}}
+\item 
+string \mbox{\hyperlink{classBlock_af2c5f44954acd8ffe02b7b68baba5a16}{Hash}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBlock_a2e61c2609df0fbc30a370050cb304f24}\label{classBlock_a2e61c2609df0fbc30a370050cb304f24}} 
+\index{Block@{Block}!Block@{Block}}
+\index{Block@{Block}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{Block()}{Block()}}
+{\footnotesize\ttfamily Block\+::\+Block (\begin{DoxyParamCaption}\item[{int}]{id,  }\item[{string}]{transaction\+Desc,  }\item[{int}]{recipient\+Id,  }\item[{int}]{sender\+Id,  }\item[{double}]{transaction\+Amount,  }\item[{string}]{recipient\+Balance,  }\item[{string}]{sender\+Balance,  }\item[{string}]{prev\+Hash }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBlock_ac56f9daf4952e13506de14bb1bf27245}\label{classBlock_ac56f9daf4952e13506de14bb1bf27245}} 
+\index{Block@{Block}!DisplayBlockContents@{DisplayBlockContents}}
+\index{DisplayBlockContents@{DisplayBlockContents}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{DisplayBlockContents()}{DisplayBlockContents()}}
+{\footnotesize\ttfamily void Block\+::\+Display\+Block\+Contents (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classBlock_a59dded402554212a98a05d0ae758331e}\label{classBlock_a59dded402554212a98a05d0ae758331e}} 
+\index{Block@{Block}!GetCurrentTime@{GetCurrentTime}}
+\index{GetCurrentTime@{GetCurrentTime}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{GetCurrentTime()}{GetCurrentTime()}}
+{\footnotesize\ttfamily long Block\+::\+Get\+Current\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classBlock_ac0fc09c2c0060cd7b806dd2fc34d4977}\label{classBlock_ac0fc09c2c0060cd7b806dd2fc34d4977}} 
+\index{Block@{Block}!GetHash@{GetHash}}
+\index{GetHash@{GetHash}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{GetHash()}{GetHash()}}
+{\footnotesize\ttfamily string Block\+::\+Get\+Hash (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classBlock_acd8159dd195fcd79f4f506f05198f65a}\label{classBlock_acd8159dd195fcd79f4f506f05198f65a}} 
+\index{Block@{Block}!GetID@{GetID}}
+\index{GetID@{GetID}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{GetID()}{GetID()}}
+{\footnotesize\ttfamily int Block\+::\+Get\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classBlock_a6d88e5b5822ba6539385136715116de7}\label{classBlock_a6d88e5b5822ba6539385136715116de7}} 
+\index{Block@{Block}!GetRecipientBalancePath@{GetRecipientBalancePath}}
+\index{GetRecipientBalancePath@{GetRecipientBalancePath}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{GetRecipientBalancePath()}{GetRecipientBalancePath()}}
+{\footnotesize\ttfamily string Block\+::\+Get\+Recipient\+Balance\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classBlock_afc37cdcb9ddda35c39aa631a355dcbb2}\label{classBlock_afc37cdcb9ddda35c39aa631a355dcbb2}} 
+\index{Block@{Block}!GetRecipientID@{GetRecipientID}}
+\index{GetRecipientID@{GetRecipientID}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{GetRecipientID()}{GetRecipientID()}}
+{\footnotesize\ttfamily int Block\+::\+Get\+Recipient\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classBlock_af1f93838be8622e85ebe6dc4beba3141}\label{classBlock_af1f93838be8622e85ebe6dc4beba3141}} 
+\index{Block@{Block}!GetSenderBalancePath@{GetSenderBalancePath}}
+\index{GetSenderBalancePath@{GetSenderBalancePath}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{GetSenderBalancePath()}{GetSenderBalancePath()}}
+{\footnotesize\ttfamily string Block\+::\+Get\+Sender\+Balance\+Path (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classBlock_a5bb3cd568e1b2d7c73653e1002e61b60}\label{classBlock_a5bb3cd568e1b2d7c73653e1002e61b60}} 
+\index{Block@{Block}!GetSenderID@{GetSenderID}}
+\index{GetSenderID@{GetSenderID}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{GetSenderID()}{GetSenderID()}}
+{\footnotesize\ttfamily int Block\+::\+Get\+Sender\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classBlock_ab1966e01025db3d50ec2e972e4320e83}\label{classBlock_ab1966e01025db3d50ec2e972e4320e83}} 
+\index{Block@{Block}!GetTransactionAmount@{GetTransactionAmount}}
+\index{GetTransactionAmount@{GetTransactionAmount}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{GetTransactionAmount()}{GetTransactionAmount()}}
+{\footnotesize\ttfamily double Block\+::\+Get\+Transaction\+Amount (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{classBlock_a625e5e370229fb4912f4a5e37a8500c9}\label{classBlock_a625e5e370229fb4912f4a5e37a8500c9}} 
+\index{Block@{Block}!HashBlock@{HashBlock}}
+\index{HashBlock@{HashBlock}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{HashBlock()}{HashBlock()}}
+{\footnotesize\ttfamily void Block\+::\+Hash\+Block (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classBlock_a2d473e56125513fcdf3cdbaf4bd01cec}\label{classBlock_a2d473e56125513fcdf3cdbaf4bd01cec}} 
+\index{Block@{Block}!Amount@{Amount}}
+\index{Amount@{Amount}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{Amount}{Amount}}
+{\footnotesize\ttfamily double Block\+::\+Amount\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classBlock_a2be0ec7bac0d9bc36ce063c265f3756e}\label{classBlock_a2be0ec7bac0d9bc36ce063c265f3756e}} 
+\index{Block@{Block}!CreationTime@{CreationTime}}
+\index{CreationTime@{CreationTime}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{CreationTime}{CreationTime}}
+{\footnotesize\ttfamily long Block\+::\+Creation\+Time\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classBlock_af2c5f44954acd8ffe02b7b68baba5a16}\label{classBlock_af2c5f44954acd8ffe02b7b68baba5a16}} 
+\index{Block@{Block}!Hash@{Hash}}
+\index{Hash@{Hash}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{Hash}{Hash}}
+{\footnotesize\ttfamily string Block\+::\+Hash\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classBlock_a1fbbe7a8dd960915cb5a8c8f466037dd}\label{classBlock_a1fbbe7a8dd960915cb5a8c8f466037dd}} 
+\index{Block@{Block}!ID@{ID}}
+\index{ID@{ID}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{ID}{ID}}
+{\footnotesize\ttfamily int Block\+::\+ID\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classBlock_a61426ea59915c338d957d52f7b884a45}\label{classBlock_a61426ea59915c338d957d52f7b884a45}} 
+\index{Block@{Block}!PrevHash@{PrevHash}}
+\index{PrevHash@{PrevHash}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{PrevHash}{PrevHash}}
+{\footnotesize\ttfamily string Block\+::\+Prev\+Hash\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classBlock_a53efa9070010c9516c30117db14af8d3}\label{classBlock_a53efa9070010c9516c30117db14af8d3}} 
+\index{Block@{Block}!RecipientBalancePath@{RecipientBalancePath}}
+\index{RecipientBalancePath@{RecipientBalancePath}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{RecipientBalancePath}{RecipientBalancePath}}
+{\footnotesize\ttfamily string Block\+::\+Recipient\+Balance\+Path\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classBlock_aaa61df32673d444ece31a98b144fe508}\label{classBlock_aaa61df32673d444ece31a98b144fe508}} 
+\index{Block@{Block}!RecipientId@{RecipientId}}
+\index{RecipientId@{RecipientId}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{RecipientId}{RecipientId}}
+{\footnotesize\ttfamily int Block\+::\+Recipient\+Id\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classBlock_a8a1bfee9b3ea84c6c6a9656275ae7362}\label{classBlock_a8a1bfee9b3ea84c6c6a9656275ae7362}} 
+\index{Block@{Block}!SenderBalancePath@{SenderBalancePath}}
+\index{SenderBalancePath@{SenderBalancePath}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{SenderBalancePath}{SenderBalancePath}}
+{\footnotesize\ttfamily string Block\+::\+Sender\+Balance\+Path\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classBlock_a9a343b8872b18e4526a63a740f62119f}\label{classBlock_a9a343b8872b18e4526a63a740f62119f}} 
+\index{Block@{Block}!SenderId@{SenderId}}
+\index{SenderId@{SenderId}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{SenderId}{SenderId}}
+{\footnotesize\ttfamily int Block\+::\+Sender\+Id\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classBlock_a4541ab35c81c694a48613fa7b236341c}\label{classBlock_a4541ab35c81c694a48613fa7b236341c}} 
+\index{Block@{Block}!TransactionDescription@{TransactionDescription}}
+\index{TransactionDescription@{TransactionDescription}!Block@{Block}}
+\doxysubsubsection{\texorpdfstring{TransactionDescription}{TransactionDescription}}
+{\footnotesize\ttfamily string Block\+::\+Transaction\+Description\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+blockchain/\mbox{\hyperlink{block_8h}{block.\+h}}\item 
+blockchain/\mbox{\hyperlink{block_8cpp}{block.\+cpp}}\end{DoxyCompactItemize}

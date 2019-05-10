@@ -12,8 +12,8 @@ int Blockchain::CreateTransaction(int idSender, int idRecipient, double transact
 	int newBlockId = latestBlock->GetID() + 1;
 
 	// Do the transaction
-	string senderBalance = ComputeSenderTransaction(transactionAmount, GetLatestBalance(idSender), senderCloudPath);
-	string receiverBalance = ComputeReceiverTransaction(transactionAmount, GetLatestBalance(idRecipient), recipientCloudPath);
+	string senderBalance = ComputeSenderTransaction(-transactionAmount, GetLatestBalance(idSender), senderCloudPath);
+	string receiverBalance = ComputeReceiverTransaction(-transactionAmount, GetLatestBalance(idRecipient), recipientCloudPath);
 
 	// Create a block with this information
 	AddBlock(Block(newBlockId, descStream.str(), idRecipient, idSender, transactionAmount,
@@ -21,13 +21,20 @@ int Blockchain::CreateTransaction(int idSender, int idRecipient, double transact
 	return newBlockId;
 }
 
-string Blockchain::GetLatestBalance(int userId) {
+string Blockchain::GetLatestBalance(int userId, int ignoreBlockId) {
 		for (auto it = Chain.rbegin(); it != Chain.rend(); ++it) {
+			if (ignoreBlockId != 0 && it->GetID() >= ignoreBlockId)
+				continue;
+
 			if (it->GetSenderID() == userId)
 				return it->GetSenderBalancePath();
 			if (it->GetRecipientID() == userId)
 				return it->GetRecipientBalancePath();
 		}
+}
+
+string Blockchain::GetLatestBalance(int userId) {
+	return GetLatestBalance(userId, 0u);
 }
 
 void Blockchain::InitNewUserBalance(int userId, string newBalance) {
@@ -56,12 +63,26 @@ void Blockchain::AddBlock(Block block) {
 	Chain.push_back(block);
 }
 
+void Blockchain::GenerateGenesisBlock() {
+	AddBlock(Block(0, "Genesis Block", 0, 0, 0, "", "", ""));
+}
+
 Block Blockchain::GetBlock(int id) {
 	for (auto it = Chain.begin(); it != Chain.end(); ++it)
 		if (it->GetID() == id)
 			return *it;
 }
 
-void Blockchain::GenerateGenesisBlock() {
-	AddBlock(Block(0, "Genesis Block", 0, 0, 0, "", "", ""));
+bool Blockchain::IsTransactionBlock(int id) {
+	Block b = GetBlock(id);
+	return (b.GetSenderID() > 0 && b.GetRecipientID() > 0);
+}
+
+bool Blockchain::VerifyTransaction(int blockId, string senderCloudPath, string recipientCloudPath) {
+	Block b = GetBlock(blockId);
+
+	bool senderBalance = VerifyTransactionBalance(true, b.GetTransactionAmount(), senderCloudPath, GetLatestBalance(b.GetSenderID(), b.GetID()), b.GetSenderBalancePath());
+	bool recipBalance = VerifyTransactionBalance(false, b.GetTransactionAmount(), recipientCloudPath, GetLatestBalance(b.GetRecipientID(), b.GetID()), b.GetRecipientBalancePath());
+
+	return (senderBalance && recipBalance);
 }

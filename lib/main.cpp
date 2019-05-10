@@ -22,10 +22,77 @@ int CommitTransaction(int senderId, int recipId, double amount) {
   return blockchain.CreateTransaction(senderId, recipId, amount, senderPath, recipientPath);
 }
 
+void VerificationMenu() {
+  // UI Menu
+  cout << "Verification Menu" << endl
+    << "---------------------" << endl
+    << "0: Go Back" << endl
+    << "1: Verify Block" << endl
+    << "2: Verify Entire Chain" << endl
+    << "3: Verify User Account Balance" << endl << endl;
+
+  bool stayInMenu = true;
+
+  while (stayInMenu) {
+
+    int option;
+    cout << "Please Enter a Value: ";
+    cin >> option;
+
+    switch (option) {
+      case 0:
+        stayInMenu = false;
+        break;
+
+      case 1:
+        {
+          int transactionBlock;
+          cout << "Enter a transaction block to verify: ";
+          cin >> transactionBlock;
+          
+          // make sure its valid transaction block
+          if (!blockchain.IsTransactionBlock(transactionBlock))
+          {
+            cout << "Error: Enter a valid transaction block!" << endl << endl;
+            break;
+          }
+
+          Block b = blockchain.GetBlock(transactionBlock);
+          string senderPath = userDB.GetUser(b.GetSenderID()).CloudKeyPath;
+          string recipientPath = userDB.GetUser(b.GetRecipientID()).CloudKeyPath;
+
+          bool isVerified = b.GetTransactionAmount() >= 0 
+                          && b.GetSenderID() != b.GetRecipientID() 
+                          && blockchain.VerifyTransaction(transactionBlock, senderPath, recipientPath);
+
+          if (isVerified)
+            cout << "Transaction block " << transactionBlock << " has been validated successfully" << endl << endl;
+          else
+            cout << "Transaction block " << transactionBlock << " is not a valid block!!!" << endl << endl;  
+
+        }        
+        break;
+
+      case 2:
+        cout << "Currently Unsupported!" << endl << endl;
+        break;
+
+      case 3:
+        cout << "Currently Unsupported!" << endl << endl;
+        break;
+
+      default:
+        cout << "Please enter a valid option!" << endl << endl;
+        break;
+    }
+  }  
+}
+
+
 void InitUsersAndTransactions() {
   // Would be nice if this did deserialisatino at some point
   // Add users to db and give them some money
-  cout << "Populating the blockchain with some users!! Please wait..." << endl;
+  cout << "Populating the encrypted ledger with some users!! Please wait..." << endl;
   NewUser("User 1", 200);
   cout << "User 1 with a balance of £200 has been created" << endl;
   NewUser("User 2", 20);
@@ -79,7 +146,7 @@ int main(int argc, char const *argv[]) {
   cout << endl
     << "Encrypted Ledger Interactive Menu" << endl
     << "By Zak Dowsett" << endl
-    << "Version: 0.4.0" << endl
+    << "Version: 1.0.2" << endl
     << "https://github.com/ZakDaMack/FYP-EncryptedLedger" << endl
     << endl;
 
@@ -97,10 +164,11 @@ int main(int argc, char const *argv[]) {
       << "0: Quit Application" << endl
       << "1: Logout" << endl
       << "2: Create a New Transaction" << endl
-      << "3: View a Single Block" << endl
-      << "4: View Entire Blockchain" << endl
-      << "5: View Users" << endl
-      << "6: View My Balance" << endl << endl;
+      << "3: Verification Menu" << endl
+      << "4: View a Single Block" << endl
+      << "5: View Entire Blockchain" << endl
+      << "6: View Users" << endl
+      << "7: View My Balance" << endl << endl;
 
     int option;
     cout << "Please Enter a Value: ";
@@ -129,29 +197,32 @@ int main(int argc, char const *argv[]) {
           cout << "Transaction Successful! Your block ID is: " << blockId << endl << endl;
         }
         break;
-
       case 3:
+          VerificationMenu();
+        break;
+
+      case 4:
         {
-          cout << "Enter Block ID: ";
           int block;
+          cout << "Enter Block ID: ";
           cin >> block;
           blockchain.DisplayBlock(block);
           //WaitForUserInput();
         }
         break;
 
-      case 4:
+      case 5:
         blockchain.DisplayChain();
         //WaitForUserInput();
         break;
 
-      case 5:
+      case 6:
         userDB.DisplayUsers();
 	      cout << endl;
         //WaitForUserInput();
         break;
 
-      case 6:
+      case 7:
         cout << "Getting your current balance..." << endl;
         cout << "Your current balance is: £" << 
           ReadBankBalance(blockchain.GetLatestBalance(currentUser),

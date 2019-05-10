@@ -19,11 +19,7 @@ void CipherTransactionAmount(LweSample* result, int64_t value, const TFheGateBoo
 /// Params:
 ///
 /// Returns: string of path for file containing key
-    #pragma GCC diagnostic push
-    #pragma GCC diagnostic ignored "-Wnarrowing"
 string GeneratePrivateKeyFile();
-    #pragma GCC diagnostic pop
-
 
 /// Generates a cloud key from the private key file
 /// Params:
@@ -40,4 +36,4 @@ string ComputeSenderTransaction(double transactionAmount, string previousBalance
 
 string ComputeReceiverTransaction(double transactionAmount, string previousBalanceFile, string cloudKeyPath);
 
-bool VerifyTransaction(bool outgoingTransaction, double transactionAmount);
+bool VerifyTransactionBalance(bool outgoingTransaction, double transactionAmount, string cloudKeyPath, string originalBalancePath, string newBalancePath);

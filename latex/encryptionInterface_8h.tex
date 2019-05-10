@@ -1,0 +1,132 @@
+\hypertarget{encryptionInterface_8h}{}\doxysection{tfhe/encryption\+Interface.h File Reference}
+\label{encryptionInterface_8h}\index{tfhe/encryptionInterface.h@{tfhe/encryptionInterface.h}}
+{\ttfamily \#include $<$tfhe/tfhe.\+h$>$}\newline
+{\ttfamily \#include $<$tfhe/tfhe\+\_\+io.\+h$>$}\newline
+{\ttfamily \#include $<$chrono$>$}\newline
+{\ttfamily \#include $<$iomanip$>$}\newline
+Include dependency graph for encryption\+Interface.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{encryptionInterface_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{encryptionInterface_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{encryptionInterface_8h_adcf03189ab81d873bfb3922e4f73c94d}{Subtraction}} (Lwe\+Sample $\ast$result, const Lwe\+Sample $\ast$a, const Lwe\+Sample $\ast$b, const T\+Fhe\+Gate\+Bootstrapping\+Cloud\+Key\+Set $\ast$public\+Key)
+\item 
+void \mbox{\hyperlink{encryptionInterface_8h_a189e9c4c020b75887161fae89acedbba}{Addition}} (Lwe\+Sample $\ast$result, const Lwe\+Sample $\ast$a, const Lwe\+Sample $\ast$b, const T\+Fhe\+Gate\+Bootstrapping\+Cloud\+Key\+Set $\ast$public\+Key)
+\item 
+long \mbox{\hyperlink{encryptionInterface_8h_a9d6252f62daac8f019a3596f80a131a6}{Get\+Current\+Time}} ()
+\item 
+void \mbox{\hyperlink{encryptionInterface_8h_a3660d0ca7e6ca73f048103abcbc30386}{Cipher\+Transaction\+Amount}} (Lwe\+Sample $\ast$result, int64\+\_\+t value, const T\+Fhe\+Gate\+Bootstrapping\+Cloud\+Key\+Set $\ast$public\+Key)
+\item 
+string \mbox{\hyperlink{encryptionInterface_8h_ab870cd1ff9f18c1254486b024eb9b656}{Generate\+Private\+Key\+File}} ()
+\item 
+string \mbox{\hyperlink{encryptionInterface_8h_a77934a2d329e75074a5149b6c9d75456}{Generate\+Cloud\+Key\+File}} (string private\+Key\+Path)
+\item 
+string \mbox{\hyperlink{encryptionInterface_8h_a8dcceae4a52747add6596258c1d050a9}{Encrypt\+Bank\+Balance}} (double bank\+Balance, string private\+Key\+Path)
+\begin{DoxyCompactList}\small\item\em Returns\+: file path to balance. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{encryptionInterface_8h_a7f55270e165adb65acfdaed233de178e}{Read\+Bank\+Balance}} (string balance\+Path, string private\+Key\+Path)
+\item 
+string \mbox{\hyperlink{encryptionInterface_8h_a56ff492597145c6a958dfc567f1a8269}{Compute\+Sender\+Transaction}} (double transaction\+Amount, string previous\+Balance\+File, string cloud\+Key\+Path)
+\item 
+string \mbox{\hyperlink{encryptionInterface_8h_a584e4bf34110f317627bb56b173ebb64}{Compute\+Receiver\+Transaction}} (double transaction\+Amount, string previous\+Balance\+File, string cloud\+Key\+Path)
+\item 
+bool \mbox{\hyperlink{encryptionInterface_8h_a61887965ee34c2c2360d317d5c5f60d4}{Verify\+Transaction\+Balance}} (bool outgoing\+Transaction, double transaction\+Amount, string cloud\+Key\+Path, string original\+Balance\+Path, string new\+Balance\+Path)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{encryptionInterface_8h_a189e9c4c020b75887161fae89acedbba}\label{encryptionInterface_8h_a189e9c4c020b75887161fae89acedbba}} 
+\index{encryptionInterface.h@{encryptionInterface.h}!Addition@{Addition}}
+\index{Addition@{Addition}!encryptionInterface.h@{encryptionInterface.h}}
+\doxysubsubsection{\texorpdfstring{Addition()}{Addition()}}
+{\footnotesize\ttfamily void Addition (\begin{DoxyParamCaption}\item[{Lwe\+Sample $\ast$}]{result,  }\item[{const Lwe\+Sample $\ast$}]{a,  }\item[{const Lwe\+Sample $\ast$}]{b,  }\item[{const T\+Fhe\+Gate\+Bootstrapping\+Cloud\+Key\+Set $\ast$}]{public\+Key }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{encryptionInterface_8h_a3660d0ca7e6ca73f048103abcbc30386}\label{encryptionInterface_8h_a3660d0ca7e6ca73f048103abcbc30386}} 
+\index{encryptionInterface.h@{encryptionInterface.h}!CipherTransactionAmount@{CipherTransactionAmount}}
+\index{CipherTransactionAmount@{CipherTransactionAmount}!encryptionInterface.h@{encryptionInterface.h}}
+\doxysubsubsection{\texorpdfstring{CipherTransactionAmount()}{CipherTransactionAmount()}}
+{\footnotesize\ttfamily void Cipher\+Transaction\+Amount (\begin{DoxyParamCaption}\item[{Lwe\+Sample $\ast$}]{result,  }\item[{int64\+\_\+t}]{value,  }\item[{const T\+Fhe\+Gate\+Bootstrapping\+Cloud\+Key\+Set $\ast$}]{public\+Key }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{encryptionInterface_8h_a584e4bf34110f317627bb56b173ebb64}\label{encryptionInterface_8h_a584e4bf34110f317627bb56b173ebb64}} 
+\index{encryptionInterface.h@{encryptionInterface.h}!ComputeReceiverTransaction@{ComputeReceiverTransaction}}
+\index{ComputeReceiverTransaction@{ComputeReceiverTransaction}!encryptionInterface.h@{encryptionInterface.h}}
+\doxysubsubsection{\texorpdfstring{ComputeReceiverTransaction()}{ComputeReceiverTransaction()}}
+{\footnotesize\ttfamily string Compute\+Receiver\+Transaction (\begin{DoxyParamCaption}\item[{double}]{transaction\+Amount,  }\item[{string}]{previous\+Balance\+File,  }\item[{string}]{cloud\+Key\+Path }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{encryptionInterface_8h_a56ff492597145c6a958dfc567f1a8269}\label{encryptionInterface_8h_a56ff492597145c6a958dfc567f1a8269}} 
+\index{encryptionInterface.h@{encryptionInterface.h}!ComputeSenderTransaction@{ComputeSenderTransaction}}
+\index{ComputeSenderTransaction@{ComputeSenderTransaction}!encryptionInterface.h@{encryptionInterface.h}}
+\doxysubsubsection{\texorpdfstring{ComputeSenderTransaction()}{ComputeSenderTransaction()}}
+{\footnotesize\ttfamily string Compute\+Sender\+Transaction (\begin{DoxyParamCaption}\item[{double}]{transaction\+Amount,  }\item[{string}]{previous\+Balance\+File,  }\item[{string}]{cloud\+Key\+Path }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{encryptionInterface_8h_a8dcceae4a52747add6596258c1d050a9}\label{encryptionInterface_8h_a8dcceae4a52747add6596258c1d050a9}} 
+\index{encryptionInterface.h@{encryptionInterface.h}!EncryptBankBalance@{EncryptBankBalance}}
+\index{EncryptBankBalance@{EncryptBankBalance}!encryptionInterface.h@{encryptionInterface.h}}
+\doxysubsubsection{\texorpdfstring{EncryptBankBalance()}{EncryptBankBalance()}}
+{\footnotesize\ttfamily string Encrypt\+Bank\+Balance (\begin{DoxyParamCaption}\item[{double}]{bank\+Balance,  }\item[{string}]{private\+Key\+Path }\end{DoxyParamCaption})}
+
+
+
+Returns\+: file path to balance. 
+
+\mbox{\Hypertarget{encryptionInterface_8h_a77934a2d329e75074a5149b6c9d75456}\label{encryptionInterface_8h_a77934a2d329e75074a5149b6c9d75456}} 
+\index{encryptionInterface.h@{encryptionInterface.h}!GenerateCloudKeyFile@{GenerateCloudKeyFile}}
+\index{GenerateCloudKeyFile@{GenerateCloudKeyFile}!encryptionInterface.h@{encryptionInterface.h}}
+\doxysubsubsection{\texorpdfstring{GenerateCloudKeyFile()}{GenerateCloudKeyFile()}}
+{\footnotesize\ttfamily string Generate\+Cloud\+Key\+File (\begin{DoxyParamCaption}\item[{string}]{private\+Key\+Path }\end{DoxyParamCaption})}
+
+Generates a cloud key from the private key file Params\+:
+
+Returns\+: string of path for file containing key
+
+Generates a private key file to encrypt and decrypt your bank balance Params\+:
+
+Returns\+: string of path for file containing key \mbox{\Hypertarget{encryptionInterface_8h_ab870cd1ff9f18c1254486b024eb9b656}\label{encryptionInterface_8h_ab870cd1ff9f18c1254486b024eb9b656}} 
+\index{encryptionInterface.h@{encryptionInterface.h}!GeneratePrivateKeyFile@{GeneratePrivateKeyFile}}
+\index{GeneratePrivateKeyFile@{GeneratePrivateKeyFile}!encryptionInterface.h@{encryptionInterface.h}}
+\doxysubsubsection{\texorpdfstring{GeneratePrivateKeyFile()}{GeneratePrivateKeyFile()}}
+{\footnotesize\ttfamily string Generate\+Private\+Key\+File (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Generates a private key to encrypt and decrypt your bank balance Params\+:
+
+Returns\+: string of path for file containing key
+
+Generates a private key file to encrypt and decrypt your bank balance Params\+:
+
+Returns\+: string of path for file containing key \mbox{\Hypertarget{encryptionInterface_8h_a9d6252f62daac8f019a3596f80a131a6}\label{encryptionInterface_8h_a9d6252f62daac8f019a3596f80a131a6}} 
+\index{encryptionInterface.h@{encryptionInterface.h}!GetCurrentTime@{GetCurrentTime}}
+\index{GetCurrentTime@{GetCurrentTime}!encryptionInterface.h@{encryptionInterface.h}}
+\doxysubsubsection{\texorpdfstring{GetCurrentTime()}{GetCurrentTime()}}
+{\footnotesize\ttfamily long Get\+Current\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{encryptionInterface_8h_a7f55270e165adb65acfdaed233de178e}\label{encryptionInterface_8h_a7f55270e165adb65acfdaed233de178e}} 
+\index{encryptionInterface.h@{encryptionInterface.h}!ReadBankBalance@{ReadBankBalance}}
+\index{ReadBankBalance@{ReadBankBalance}!encryptionInterface.h@{encryptionInterface.h}}
+\doxysubsubsection{\texorpdfstring{ReadBankBalance()}{ReadBankBalance()}}
+{\footnotesize\ttfamily double Read\+Bank\+Balance (\begin{DoxyParamCaption}\item[{string}]{balance\+Path,  }\item[{string}]{private\+Key\+Path }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{encryptionInterface_8h_adcf03189ab81d873bfb3922e4f73c94d}\label{encryptionInterface_8h_adcf03189ab81d873bfb3922e4f73c94d}} 
+\index{encryptionInterface.h@{encryptionInterface.h}!Subtraction@{Subtraction}}
+\index{Subtraction@{Subtraction}!encryptionInterface.h@{encryptionInterface.h}}
+\doxysubsubsection{\texorpdfstring{Subtraction()}{Subtraction()}}
+{\footnotesize\ttfamily void Subtraction (\begin{DoxyParamCaption}\item[{Lwe\+Sample $\ast$}]{result,  }\item[{const Lwe\+Sample $\ast$}]{a,  }\item[{const Lwe\+Sample $\ast$}]{b,  }\item[{const T\+Fhe\+Gate\+Bootstrapping\+Cloud\+Key\+Set $\ast$}]{public\+Key }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{encryptionInterface_8h_a61887965ee34c2c2360d317d5c5f60d4}\label{encryptionInterface_8h_a61887965ee34c2c2360d317d5c5f60d4}} 
+\index{encryptionInterface.h@{encryptionInterface.h}!VerifyTransactionBalance@{VerifyTransactionBalance}}
+\index{VerifyTransactionBalance@{VerifyTransactionBalance}!encryptionInterface.h@{encryptionInterface.h}}
+\doxysubsubsection{\texorpdfstring{VerifyTransactionBalance()}{VerifyTransactionBalance()}}
+{\footnotesize\ttfamily bool Verify\+Transaction\+Balance (\begin{DoxyParamCaption}\item[{bool}]{outgoing\+Transaction,  }\item[{double}]{transaction\+Amount,  }\item[{string}]{cloud\+Key\+Path,  }\item[{string}]{original\+Balance\+Path,  }\item[{string}]{new\+Balance\+Path }\end{DoxyParamCaption})}
+

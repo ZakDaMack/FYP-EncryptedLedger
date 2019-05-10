@@ -65,7 +65,7 @@ void CipherTransactionAmount(LweSample* result, int64_t value, const TFheGateBoo
 /// Returns: string of path for file containing key
 string GeneratePrivateKeyFile()
 {
-    TFheGateBootstrappingParameterSet* parameters = new_default_gate_bootstrapping_parameters(126);
+    TFheGateBootstrappingParameterSet* parameters = new_default_gate_bootstrapping_parameters(110);
 
     //generate a random key
     long timeSeeder = GetCurrentTime();
@@ -247,25 +247,25 @@ string ComputeReceiverTransaction(double transactionAmount, string previousBalan
     return balancePath;
 }
 
-bool VerifyTransaction(bool outgoingTransaction, double transactionAmount)
+bool VerifyTransactionBalance(bool outgoingTransaction, double transactionAmount, string cloudKeyPath, string originalBalancePath, string newBalancePath)
 {
     int64_t shiftedTransactionAmount = transactionAmount * 100;
 
-    // Fetch the public key for computing
-    FILE* public_file = fopen("public.key","rb");
+    // Fetch the cloud key for computing
+    FILE* public_file = fopen(cloudKeyPath.c_str(),"rb");
     TFheGateBootstrappingCloudKeySet* publicKey = new_tfheGateBootstrappingCloudKeySet_fromFile(public_file);
     fclose(public_file);
 
     // Get the original balance cipher
     LweSample* originalCipherBalance = new_gate_bootstrapping_ciphertext_array(64, publicKey->params);
-    FILE* old_data_file = fopen("oldBalance.data","rb");
+    FILE* old_data_file = fopen(originalBalancePath.c_str(),"rb");
     for (int i = 0; i < 64; i++)
         import_gate_bootstrapping_ciphertext_fromFile(old_data_file, &originalCipherBalance[i], publicKey->params);
     fclose(old_data_file);
 
     // Get the new balance cipher
     LweSample* newCipherBalance = new_gate_bootstrapping_ciphertext_array(64, publicKey->params);
-    FILE* new_data_file = fopen("oldBalance.data","rb");
+    FILE* new_data_file = fopen(newBalancePath.c_str(),"rb");
     for (int i = 0; i < 64; i++)
         import_gate_bootstrapping_ciphertext_fromFile(new_data_file, &newCipherBalance[i], publicKey->params);
     fclose(new_data_file);

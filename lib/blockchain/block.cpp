@@ -48,6 +48,10 @@ string Block::GetRecipientBalancePath() {
 	return RecipientBalancePath;
 }
 
+double Block::GetTransactionAmount() {
+	return Amount;
+}
+
 void Block::DisplayBlockContents() {
 	cout << "Block " << ID << endl
 	<< "-------------------------" << endl

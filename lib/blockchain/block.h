@@ -30,13 +30,13 @@ private:
 public:
 	Block(int id, string transactionDesc, int recipientId, int senderId, double transactionAmount, string recipientBalance, string senderBalance, string prevHash);
 	void DisplayBlockContents();
-
  	int GetID();
  	int GetSenderID();
  	string GetSenderBalancePath();
  	int GetRecipientID();
  	string GetRecipientBalancePath();
  	string GetHash();
+	double GetTransactionAmount();
 };
 
 #endif

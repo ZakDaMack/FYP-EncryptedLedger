@@ -1,0 +1,97 @@
+\hypertarget{main_8cpp}{}\doxysection{main.\+cpp File Reference}
+\label{main_8cpp}\index{main.cpp@{main.cpp}}
+{\ttfamily \#include \char`\"{}blockchain/userdatabase.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}blockchain/blockchain.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}tfhe/encryption\+Interface.\+h\char`\"{}}\newline
+Include dependency graph for main.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{main_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{main_8cpp_afa0288d554ae3593553aaee20e02d352}{New\+User}} (string name, double starting\+Balance)
+\item 
+int \mbox{\hyperlink{main_8cpp_a5cfcb709be5c12f6ef1c30fa4b2ee3fd}{Commit\+Transaction}} (int sender\+Id, int recip\+Id, double amount)
+\item 
+void \mbox{\hyperlink{main_8cpp_a193c30883ef84823dedfbc52b779140e}{Verification\+Menu}} ()
+\item 
+void \mbox{\hyperlink{main_8cpp_aca5b4c63da17fecf4475cb2c849fc332}{Init\+Users\+And\+Transactions}} ()
+\item 
+void \mbox{\hyperlink{main_8cpp_a9738a701bcdefa8d56aa7f0f4dfe9726}{Wait\+For\+User\+Input}} ()
+\item 
+int \mbox{\hyperlink{main_8cpp_aaf3a937688360ee614449de0dac4ee30}{Login\+As\+User}} ()
+\item 
+int \mbox{\hyperlink{main_8cpp_abf9e6b7e6f15df4b525a2e7705ba3089}{main}} (int argc, char const $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBlockchain}{Blockchain}} \mbox{\hyperlink{main_8cpp_ab339cc10320d2b265ba3cfd3e75646e8}{blockchain}} = \mbox{\hyperlink{classBlockchain}{Blockchain}}()
+\item 
+\mbox{\hyperlink{classUserDatabase}{User\+Database}} \mbox{\hyperlink{main_8cpp_a369876571d87c64a30aa89e2ce00678b}{user\+DB}} = \mbox{\hyperlink{classUserDatabase}{User\+Database}}()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{main_8cpp_a5cfcb709be5c12f6ef1c30fa4b2ee3fd}\label{main_8cpp_a5cfcb709be5c12f6ef1c30fa4b2ee3fd}} 
+\index{main.cpp@{main.cpp}!CommitTransaction@{CommitTransaction}}
+\index{CommitTransaction@{CommitTransaction}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{CommitTransaction()}{CommitTransaction()}}
+{\footnotesize\ttfamily int Commit\+Transaction (\begin{DoxyParamCaption}\item[{int}]{sender\+Id,  }\item[{int}]{recip\+Id,  }\item[{double}]{amount }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{main_8cpp_aca5b4c63da17fecf4475cb2c849fc332}\label{main_8cpp_aca5b4c63da17fecf4475cb2c849fc332}} 
+\index{main.cpp@{main.cpp}!InitUsersAndTransactions@{InitUsersAndTransactions}}
+\index{InitUsersAndTransactions@{InitUsersAndTransactions}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{InitUsersAndTransactions()}{InitUsersAndTransactions()}}
+{\footnotesize\ttfamily void Init\+Users\+And\+Transactions (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{main_8cpp_aaf3a937688360ee614449de0dac4ee30}\label{main_8cpp_aaf3a937688360ee614449de0dac4ee30}} 
+\index{main.cpp@{main.cpp}!LoginAsUser@{LoginAsUser}}
+\index{LoginAsUser@{LoginAsUser}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{LoginAsUser()}{LoginAsUser()}}
+{\footnotesize\ttfamily int Login\+As\+User (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{main_8cpp_abf9e6b7e6f15df4b525a2e7705ba3089}\label{main_8cpp_abf9e6b7e6f15df4b525a2e7705ba3089}} 
+\index{main.cpp@{main.cpp}!main@{main}}
+\index{main@{main}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char const $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{main_8cpp_afa0288d554ae3593553aaee20e02d352}\label{main_8cpp_afa0288d554ae3593553aaee20e02d352}} 
+\index{main.cpp@{main.cpp}!NewUser@{NewUser}}
+\index{NewUser@{NewUser}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{NewUser()}{NewUser()}}
+{\footnotesize\ttfamily int New\+User (\begin{DoxyParamCaption}\item[{string}]{name,  }\item[{double}]{starting\+Balance }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{main_8cpp_a193c30883ef84823dedfbc52b779140e}\label{main_8cpp_a193c30883ef84823dedfbc52b779140e}} 
+\index{main.cpp@{main.cpp}!VerificationMenu@{VerificationMenu}}
+\index{VerificationMenu@{VerificationMenu}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{VerificationMenu()}{VerificationMenu()}}
+{\footnotesize\ttfamily void Verification\+Menu (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{main_8cpp_a9738a701bcdefa8d56aa7f0f4dfe9726}\label{main_8cpp_a9738a701bcdefa8d56aa7f0f4dfe9726}} 
+\index{main.cpp@{main.cpp}!WaitForUserInput@{WaitForUserInput}}
+\index{WaitForUserInput@{WaitForUserInput}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{WaitForUserInput()}{WaitForUserInput()}}
+{\footnotesize\ttfamily void Wait\+For\+User\+Input (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{main_8cpp_ab339cc10320d2b265ba3cfd3e75646e8}\label{main_8cpp_ab339cc10320d2b265ba3cfd3e75646e8}} 
+\index{main.cpp@{main.cpp}!blockchain@{blockchain}}
+\index{blockchain@{blockchain}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{blockchain}{blockchain}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classBlockchain}{Blockchain}} blockchain = \mbox{\hyperlink{classBlockchain}{Blockchain}}()}
+
+\mbox{\Hypertarget{main_8cpp_a369876571d87c64a30aa89e2ce00678b}\label{main_8cpp_a369876571d87c64a30aa89e2ce00678b}} 
+\index{main.cpp@{main.cpp}!userDB@{userDB}}
+\index{userDB@{userDB}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{userDB}{userDB}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classUserDatabase}{User\+Database}} user\+DB = \mbox{\hyperlink{classUserDatabase}{User\+Database}}()}
+
