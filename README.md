@@ -22,17 +22,12 @@ This application will attempt to utilise Homomorphic Encryption to hide the data
 ### TO-DO
 
 1. Serialisation???
-2. Testing
-3. Improve UX??? (input validation/output blockchain)
-4. Create chain validator
+2. Create chain validator
 
 ### CHEATING THE SYSTEM
 
-1. Sending money to yourself (easily validated)
-2. Sending negative values
-3. Bottomless bank account
+1. Bottomless bank account
 
 ### Known Issues
 
 1. Sending and receiving currency values seem flipped (subtraction instead of additon, vice versa)
-2. Odd dealing with floats
